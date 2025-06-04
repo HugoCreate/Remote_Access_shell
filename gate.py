@@ -9,6 +9,11 @@ import re
 #- The only way of accessing the shell enviroment (or attempt) is through this code "gate.py"
 #- And to access the enviroment you must input the correct key (or keys). Or the "enviroment.py" program, after 3 failed attempts, will end itself and wait for a restart (manually).
 
+
+LOCALHOST = "localhost"
+LOCAL_PORT = 12400
+
+
 print("Starting shell access gate... ")
 time.sleep(1.5)
 main_skt = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
@@ -55,6 +60,22 @@ while(loop1):
                 print(f"The host is up! Host '{str(env_ip)}', In the access port '{str(env_port)}'")
                 loop2 = False
                 loop1 = False
+                main_skt.close()
+                skt1 = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
+                skt1.connect(env_ip, env_port)
+                skt1.sendall(TOKEN.encode())
+                print("Access Token sent for evaluation. Waiting for response...")
+                skt1.close()
+                skt2 = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
+                skt2.bind((LOCALHOST, LOCAL_PORT))
+                skt2.listen()
+                conn, addr = skt2.accept()
+                with conn:
+                    print(f"Connected to {addr}")
+                    enviroment_pass = skt2.recv(1024)
+                    if enviroment_pass.decode() == r"ACCESS_GIVEN{12341234}":
+                        print("Succesfully connected to shell enviroment!! Starting shell access.")
+
 
             else:
                 print(f"The {env_port} is either not open or doesn't host the enviroment shell program. Try again...")
