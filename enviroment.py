@@ -6,12 +6,13 @@ import time
 
 main_skt = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
 
-for i in range(0, 8):
-  print("Starting shell enviroment... \")
-  time.sleep(0.4)
-  sub.Popen("cls")
+for i in range(0, 5):
+  print("Starting shell enviroment... \\")
+  time.sleep(1)
+  os.system("cls")
   print("Starting shell enviroment... |")
-  time.sleep(0.4)
-  sub.Popen("cls")
+  time.sleep(1)
+  os.system("cls")
   print("Starting shell enviroment... /")
-  time.sleep(0.4)
+  time.sleep(1)
+  os.system("cls")
