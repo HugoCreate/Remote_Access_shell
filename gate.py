@@ -14,6 +14,8 @@ time.sleep(1.5)
 main_skt = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
 os.system("cls" or "clear")
 
+TOKEN = r"Acces_Token_Test{12341234}"
+
 ip_pattern_rgx = r'''
 ^
 (                                  # Start of IP
@@ -28,28 +30,33 @@ ip_pattern_rgx = r'''
 $
 '''
 
-env_ip = input("Enter the public IP of the enviroment: ")
+loop1 = True
+while(loop1):
+    env_ip = input("Enter the public IP of the enviroment: ")
 
-print("Attempting connection", end="")
-time.sleep(0.5)
-print(".", end="")
-time.sleep(0.5)
-print(".", end="")
-time.sleep(0.5)
-print(".", end="")
-time.sleep("")
+    print("Attempting connection", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
+    print(".", end="")
+    time.sleep(0.5)
 
-if re.fullmatch(ip_pattern_rgx, str(env_ip), re.VERBOSE):
-    print("Valid IP address!")
-    env_port = input("Now enter the port of enviroment access: ")
-    print("Attempting port connection...")
-    main_skt.connect((env_ip, env_port))
-    result = main_skt.recv(1024)
-    if result == 0:
-        print(f"The host is up! Host '{str(env_ip)}', In the access port '{str(env_port)}'")
-else: 
-    print("Invalid IP address, try a new one (or write 'exit' to end the program): ")
+    if re.fullmatch(ip_pattern_rgx, str(env_ip), re.VERBOSE):
+        print("Valid IP address!")
+        loop2 = True
+        while(loop2):    
+            env_port = int(input("Now enter the port of enviroment access: "))
+            print("Attempting port connection...")
+            main_skt.connect((env_ip, env_port))
+            result = main_skt.recv(1024)
+            if result == 0:
+                print(f"The host is up! Host '{str(env_ip)}', In the access port '{str(env_port)}'")
+                loop2 = False
+                loop1 = False
 
-
-
-
+            else:
+                print(f"The {env_port} is either not open or doesn't host the enviroment shell program. Try again...")
+    else: 
+        print("Invalid IP address, try a new one (or write 'exit' to end the program): ")
