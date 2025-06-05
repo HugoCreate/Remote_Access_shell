@@ -21,6 +21,7 @@ for i in range(0, 5):
 
   main_skt.bind((ENV_HOST, ACCESS_PORT))
   main_skt.listen()
+  print(f"Waiting for connection... on {ENV_HOST}:{ACCESS_PORT}")
   conn, addr = main_skt.accept()
 
   with conn:
