@@ -25,7 +25,7 @@ for i in range(0, 5):
   conn, addr = main_skt.accept()
 
   with conn:
-    entry_token = main_skt.recv(1024)
+    entry_token = conn.recv(1024)
     if entry_token.decode() == r"Acces_Token_Test{12341234}":
         print(f"Connection stablished! With host: {addr}")
         main_skt.close()
