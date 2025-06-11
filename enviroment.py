@@ -20,8 +20,8 @@ for i in range(0, 5):
   os.system("cls" if os.name == "nt" else "clear")
 
   main_skt.bind((ENV_HOST, ACCESS_PORT))
-  main_skt.listen() \\O main_skt apenas escuta por conexoes, quando uma conexão e feita(.accept) ela cria uma socket para a comunicacao
-                    \\ja que o main_skt ja esta reservado para escutar.
+  main_skt.listen() #O main_skt apenas escuta por conexoes, quando uma conexão e feita(.accept) ela cria uma socket para a comunicacao
+                    #ja que o main_skt ja esta reservado para escutar.
   print(f"Waiting for connection... on {ENV_HOST}:{ACCESS_PORT}")
   conn, addr = main_skt.accept()
 
@@ -30,6 +30,4 @@ for i in range(0, 5):
     if entry_token.decode() == r"Acces_Token_Test{12341234}":
         print(f"Connection stablished! With host: {addr}")
         main_skt.close()
-        skt2 = sk.socket(sk.AF_INET, sk.SOCK_STREAM)
-        skt2.connect(addr)
-        skt2.sendall(CONFIRMATION_TOKEN.encode())
+        conn.sendall(CONFIRMATION_TOKEN.encode())
