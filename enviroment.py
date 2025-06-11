@@ -11,13 +11,13 @@ CONFIRMATION_TOKEN = r"ACCESS_GIVEN{12341234}"
 for i in range(0, 5):
   print("Starting shell enviroment... \\")
   time.sleep(1)
-  os.system("cls")
+  os.system("cls" if os.name == "nt" else "clear")
   print("Starting shell enviroment... |")
   time.sleep(1)
-  os.system("cls")
+  os.system("cls" if os.name == "nt" else "clear")
   print("Starting shell enviroment... /")
   time.sleep(1)
-  os.system("cls")
+  os.system("cls" if os.name == "nt" else "clear")
 
   main_skt.bind((ENV_HOST, ACCESS_PORT))
   main_skt.listen() \\O main_skt apenas escuta por conexoes, quando uma conexão e feita(.accept) ela cria uma socket para a comunicacao
