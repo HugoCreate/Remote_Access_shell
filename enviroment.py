@@ -20,7 +20,8 @@ for i in range(0, 5):
   os.system("cls")
 
   main_skt.bind((ENV_HOST, ACCESS_PORT))
-  main_skt.listen()
+  main_skt.listen() \\O main_skt apenas escuta por conexoes, quando uma conexão e feita(.accept) ela cria uma socket para a comunicacao
+                    \\ja que o main_skt ja esta reservado para escutar.
   print(f"Waiting for connection... on {ENV_HOST}:{ACCESS_PORT}")
   conn, addr = main_skt.accept()
 
